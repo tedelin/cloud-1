@@ -1,0 +1,29 @@
+- name: Clone repo
+  git:
+    repo: https://github.com/tedelin/Inception.git
+    dest: "{{ lookup('env', 'HOME') }}/data/Inception"
+    update: yes
+    single_branch: yes
+    version: cloud-1
+
+- name: Copy environment variable
+  copy: 
+    src: ./.env
+    dest: "{{ lookup('env', 'HOME') }}/data/Inception/srcs/.env"
+
+- name: Ensure Docker is running
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+# - name: deploy app with docker compose
+#   shell:
+#       cmd: make
+#       chdir: "{{ lookup('env', 'HOME') }}/data/Inception"
+
+- name: Deploy Docker compose
+  community.docker.docker_compose_v2:
+    project_src: "{{ lookup('env', 'HOME') }}/data/Inception/srcs"
+    files:
+      - docker-compose.yml
