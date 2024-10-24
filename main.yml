@@ -1,25 +1,25 @@
 ---
-- name: Update apt and install docker
-  hosts: servers
-  become: true
-  remote_user: tedelin
+- hosts: all
+  strategy: free
+  tasks:
+    - name: Update apt and install docker
+      become: true
+      remote_user: tedelin
 
-- name: Update and upgrade apt packages
-  apt:
-    upgrade: yes
-    update_cache: yes
-    cache_valid_time: 86400
+    - name: Update and upgrade apt packages
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400
 
-- name: Install Docker
-  hosts: servers
-  become: true
-  roles:
-    - role: docker
+    - name: Install Docker
+      become: true
+      roles:
+        - role: docker
 
-- name: Deploy app
-  hosts: servers
-  roles:
-    - role: app
+    - name: Deploy app
+      roles:
+        - role: app
 
 
 
