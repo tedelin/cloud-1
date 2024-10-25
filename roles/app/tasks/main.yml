@@ -1,11 +1,11 @@
 ---
 - name: Clone repo
   git:
-    repo: {{github_repo}}
-    dest: {{app_folder}}
+    repo: "{{github_repo}}"
+    dest: "{{app_folder}}"
     update: yes
     single_branch: yes
-    version: {{branch}}
+    version: "{{branch}}"
 
 - name: Copy environment variable
   copy: 
@@ -18,13 +18,8 @@
     state: started
     enabled: yes
 
-# - name: deploy app with docker compose
-#   shell:
-#       cmd: make
-#       chdir: "{{ app_folder }}/Inception"
-
-- name: Deploy Docker compose
-  community.docker.docker_compose_v2:
-    project_src: "{{ app_folder }}/srcs"
-    files:
-      - docker-compose.yml
+- name: Build Wordpress website
+  become: true
+  shell:
+      cmd: make
+      chdir: "{{ app_folder }}"
