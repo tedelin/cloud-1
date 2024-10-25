@@ -16,7 +16,13 @@
         name: build-essential
         state: latest
         update_cache: true
-    
+
+    - name: Install Docker
+      include_role:
+        name: docker
+      vars:
+        ansible_become: true
+
     - name: Create cloud-1 user
       ansible.builtin.user:
         name: cloud-1
@@ -24,11 +30,6 @@
         groups: docker
         append: yes
 
-    - name: Install Docker
-      include_role:
-        name: docker
-      vars:
-        ansible_become: true
 
     - name: Deploy app
       include_role:
