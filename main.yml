@@ -1,26 +1,35 @@
 ---
-- hosts: all
+- name: Deploy Wordpress blog
+  hosts: all
   strategy: free
   tasks:
-    - name: Update apt and install docker
-      become: true
-      remote_user: tedelin
-
     - name: Update and upgrade apt packages
+      become: true
       apt:
         upgrade: yes
         update_cache: yes
         cache_valid_time: 86400
 
-    - name: Install Docker
+    - name: Install build-essential
       become: true
-      roles:
-        - role: docker
+      apt:
+        name: build-essential
+        state: latest
+        update_cache: true
+    
+    - name: Create cloud-1 user
+      ansible.builtin.user:
+        name: cloud-1
+        create_home: yes
+        groups: docker
+        append: yes
+
+    - name: Install Docker
+      include_role:
+        name: docker
+      vars:
+        ansible_become: true
 
     - name: Deploy app
-      roles:
-        - role: app
-
-
-
-   
+      include_role:
+        name: app
