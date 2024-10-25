@@ -9,3 +9,6 @@ start:
 
 stop:
 	ansible all -m shell -a "cd ~/data/Inception && docker compose stop"
+
+check:
+	ansible-playbook -i $(INVENTORY_FILE) main.yml --check
