@@ -1,7 +1,7 @@
 ---
 - name: Clone Repo and deploy
   hosts: servers
-  remote_user: tedelin
+  remote_user: cloud-1
 
   tasks:
   - name: Clone repo
