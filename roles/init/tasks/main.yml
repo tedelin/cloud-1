@@ -18,3 +18,5 @@
   ansible.builtin.user:
     name: cloud-1
     create_home: yes
+    groups: sudo
+    append: yes

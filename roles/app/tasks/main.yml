@@ -14,12 +14,26 @@
     force: yes
 
 - name: Ensure Docker is running
+  become: true
   service:
     name: docker
     state: started
     enabled: yes
 
+- name: Create Wordpress volume directory
+  ansible.builtin.file:
+    path: ~/data/wordpress
+    state: directory
+    mode: '0755'
+
+- name: Create Mariadb volume directory 
+  ansible.builtin.file:
+    path: ~/data/mariadb
+    state: directory
+    mode: '0755'
+
 - name: Build Wordpress website
-  shell:
-      cmd: make
-      chdir: "{{ app_folder }}"
+  community.docker.docker_compose_v2:
+    project_src: "{{ app_folder }}/srcs"
+    build: always
+  register: output
