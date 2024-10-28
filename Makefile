@@ -5,10 +5,13 @@ $(NAME):
 	ansible-playbook -i $(INVENTORY_FILE) main.yml
 
 start:
-	ansible all -m shell -a "cd ~/data/Inception && make"
+	ansible servers -i $(INVENTORY_FILE) -m shell -a "cd ~/data/Inception && make"
 
 stop:
-	ansible all -m shell -a "cd ~/data/Inception && docker compose stop"
+	ansible servers -i $(INVENTORY_FILE) -m shell -a "cd ~/data/Inception && docker compose stop"
+
+reboot:
+	ansible servers -i $(INVENTORY_FILE) -m shell -a "sudo reboot"
 
 check:
 	ansible-playbook -i $(INVENTORY_FILE) main.yml --check
