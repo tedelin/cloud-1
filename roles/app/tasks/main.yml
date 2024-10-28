@@ -11,6 +11,7 @@
   copy: 
     src: ./.env
     dest: "{{ app_folder }}/srcs/.env"
+    force: yes
 
 - name: Ensure Docker is running
   service:
