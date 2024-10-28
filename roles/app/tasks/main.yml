@@ -19,7 +19,6 @@
     enabled: yes
 
 - name: Build Wordpress website
-  become: true
   shell:
       cmd: make
       chdir: "{{ app_folder }}"

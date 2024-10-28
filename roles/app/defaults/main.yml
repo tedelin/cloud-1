@@ -1,3 +1,3 @@
 github_repo: "https://github.com/tedelin/Inception.git"
-app_folder: "/home/cloud-1/data/Inception"
+app_folder: "~/data/Inception"
 branch: "cloud-1"

@@ -21,3 +21,9 @@
     groups: docker
     append: yes
     state: present
+  
+- name: Restart Docker
+  service:
+    name: docker
+    state: restarted
+    enabled: yes
