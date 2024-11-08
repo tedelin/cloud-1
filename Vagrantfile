@@ -75,4 +75,18 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
+#   config.vm.provision "ansible" do |ansible|
+# 	ansible.verbose = "v"
+# 	ansible.playbook = "main.yml"
+#   end
+	config.vm.provision "shell", inline: <<-SHELL
+		# Enable root SSH login by setting 'PermitRootLogin yes'
+		echo "PermitRootLogin yes" | sudo tee -a /etc/ssh/sshd_config
+		sudo systemctl restart ssh
+
+		# Copy the vagrant SSH key to root's authorized_keys
+		sudo mkdir -p /root/.ssh
+		sudo cp /home/vagrant/.ssh/authorized_keys /root/.ssh/
+		sudo chown root:root /root/.ssh/authorized_keys
+	SHELL
 end
