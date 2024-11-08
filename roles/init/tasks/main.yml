@@ -20,3 +20,9 @@
     create_home: yes
     groups: sudo
     append: yes
+
+- name: Ensure remote_tmp directory exists with correct permissions
+  file:
+    path: "/home/cloud-1/.ansible/tmp"
+    state: directory
+    mode: '1777'
