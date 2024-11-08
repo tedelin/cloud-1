@@ -13,13 +13,6 @@
     dest: "{{ app_folder }}/srcs/.env"
     force: yes
 
-- name: Ensure Docker is running
-  become: true
-  service:
-    name: docker
-    state: started
-    enabled: yes
-
 - name: Create Wordpress volume directory
   ansible.builtin.file:
     path: ~/data/wordpress
