@@ -1,6 +1,5 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/focal64"
-  config.vm.network "forwarded_port", guest: 443, host: 3000, host_ip: "127.0.0.1"
   config.vm.define "cloud-1"
 
   config.vm.network "private_network", ip: "192.168.56.178"
