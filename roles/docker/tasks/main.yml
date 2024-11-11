@@ -21,12 +21,14 @@
     groups: docker
     append: yes
     state: present
+  register: add_user_docker
 
 - name: Restart Docker
   service:
     name: docker
     state: restarted
     enabled: yes
+  when: add_user_docker.changed
 
 - name: Install docker pip package
   ansible.builtin.pip:
