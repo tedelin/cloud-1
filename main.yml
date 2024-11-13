@@ -14,4 +14,4 @@
   become: true
   become_user: cloud-1
   roles:
-      - app
+    - app
